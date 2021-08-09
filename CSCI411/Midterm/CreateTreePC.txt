@@ -1,0 +1,158 @@
+Intuition Gini: create a list of the last element in all subarrays under
+the left side and right side. For each side(left, right), count how many
+times each class value occurs X, then divide X/left.size()(or right.size()),
+then score+(X*X). A Gini score is then calculated from score,
+gini = (1 - score) * (size/(right+left)), which are then added across
+all children for a final score.
+
+Gini_Index(groups, classes)
+  n_instances = number of rows in groups
+  Gini = 0
+  For side in groups
+    size = side.size
+    if size == 0
+      continue
+    score = 0
+    for class in classes
+      proportion = 0
+      for row in side
+        if row[-1] == class
+          p += 1
+      score + (p/size)^2
+    Gini + (1- score) * (size/n_instances)
+  return Gini
+
+
+
+Intuition Get_Split: at any given node, greedily go through all columns i in
+the dataset, then look at each row within the column j; using
+dataset[i][j], split the data, left < dataset[i][j], right > dataset[i][j].
+For each split dataset[i][j], determine how well the data was split
+using the Gini algorithm, then save the best split value, and split data.
+
+
+
+This can be recursively defined:
+
+Decision Tree(train, test, max depth, min size)
+  tree = build_tree(train, max depth, min size)
+  predictions[]
+  for each row in test
+    predictions + predict
+  return predictions;
+
+Build Tree(train, max_depth, min_size)
+    root = get_split(train)
+    Split Node(root, max_depth, min_size, 1)
+    return root
+
+Split Node(node, max depth, min size, depth)
+  left = node.b_groups.left
+  right = node.b_groups.right
+  if left.size == 0 or right.size == 0
+    node.left, node.right = To Terminal(left+right)
+    return
+  if depth >= max depth
+    node.left = To Terminal(left)
+    node.right = To Terminal(right)
+    return
+  if left.size <= min size
+    node.left = To Terminal(left);
+  else
+    node.left = Get Split(left)
+    Split Node(node.left, max depth, min size, depth+1)
+  if right.size <= min size
+    node.right = To Terminal(right)
+  else
+    node.right = Get Split(right)
+    Split Node(node.right, max depth, min size, depth+1)
+
+Predict(node, row)
+  if row[node.b_index] < node.b_value
+    if !node.left.leaf
+      return predict(node.left, row)
+    else
+      return node.left
+  else
+    if !node.right.leaf
+      return predict(node.right, row)
+    else
+      return node.right
+
+
+Get_Split(dataset)
+  class_values[] = all unique classifier values
+  b_index = inf
+  b_value = inf
+  b_score = inf
+  b_groups
+  for each column i except the last
+    for each row j in i
+      groups = test_split(i, j, dataset)
+      gini = Gini_Index(groups, class_values)
+      if gini < b_score
+        b_index = i
+        b_value = j
+        b_score = gini
+        b_groups = groups
+  b_split.b_groups = b_groups
+  b_split.b_index = b_index
+  b_split.b_value = b_value
+  return b_split
+}
+
+Test_Split(index, value, dataset)
+  left[][]
+  right[][]
+  for each row in dataset
+    if row.index < value
+      left + row
+    else
+      right + row
+  results[][][]
+  results + left
+  results + right
+  return results
+}
+
+
+
+To_Terminal(group[][])
+  result[][][]
+  outcomes[]
+  setOutcomes[]
+  for each row in group
+    outcomes + row[-1]
+    if row[-1] isnt in setOutcomes
+      setOutcomes + row[-1]
+  max = -inf
+  max_val = inf
+  for each outcome in setOutcomes
+    if outcomes.occurances(outcome) > max
+      max = outcomes.occurances(outcome)
+      max_val = outcome
+  result[0][0][0] = max_val
+  terminal.b_groups = result
+  terminal.leaf = true
+  return terminal
+
+
+evaluate_algorithm(dataset, n_folds, max_depth
+                        , min_size)
+  folds[][][] = c_v_split(dataset, n_folds)
+  scores[]
+  for each fold in folds
+    train_set[][]
+    test_set[][]
+    insert all folds except current fold into train_set
+    for each row in fold
+      row_copy[] = row
+      row_copy[-1].delete
+      test_set + row_copy
+    predicted[] = decision_tree(train_set,test_set,max_depth,min_size)
+    actual[]
+    for each row in fold
+      actual + row[-1]
+    accuracy = accuracy_metric(actual, predicted)
+    scores + accuracy
+  return scores

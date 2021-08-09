@@ -1,0 +1,6 @@
+Decision Tree(test, train, max_depth, min_size)
+  root = build_tree(train, max_depth, min_size)
+  predictions[]
+  for i in test.size
+    predcitions[i] = predict(root, test[i])
+  return predictions

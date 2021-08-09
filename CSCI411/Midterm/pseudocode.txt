@@ -1,0 +1,66 @@
+longestRepeat(S)
+  root = suffixTree(s)
+  longestSub = traverse(root, 0, "")
+  return longestSub.sub
+
+traverse(node, depth, longestSub)
+  if node.left == leaf && node.right == leaf
+    max.depth = depth+1
+    max.sub = longestSub.append(node.suffix)
+    return max
+
+  if node == leaf
+    max.depth = 0
+    max.sub = ""
+    return max
+
+  temp = longestSub
+  temp.append(node.suffix)
+  left = traverse(node.left, depth+1, temp)
+  right = traverse(node.right, depth+1, temp)
+  if(left.depth > right.depth)
+    return left
+  else
+    return right
+
+
+
+TotalShortestPaths(adj[][], dist[], paths[], source, target)
+  queue[]
+  visited[]
+
+  all of visited = false
+  all of dist = infinity
+  all of paths = 0
+
+  dist[source] = 0
+  paths[source] = 1
+  visited[source] = true
+
+  queue.push_back(source)
+  while queue isnt empty
+    X = queue.pop_front
+    for all neighbors Y of X
+      if visited[Y] == false
+        queue.push_back(Y)
+        visited[n] = true
+      if dist[Y] > dist[X] + 1
+        dist[Y] = dist[X] + 1
+        paths[Y] = paths[X]
+      else if dist[Y] == dist[X] + 1
+        paths[Y] += paths[X]
+  return paths[target]
+
+  LPS(S)
+    dp[S.size+1][S.size+1]
+    R = S.reverse
+    for i in S.size
+      dp[i][0] = 0
+      dp[0][i] = 0
+    for X = 1 in rows
+      for Y = 1 in columns
+        if S[X-1] == R[Y-1]
+          dp[X][Y] = dp[X-1][Y-1] + 1
+        else
+          dp[X][Y] = max(dp[X-1][Y], dp[X][Y-1], dp[X-1][Y-1])
+    return dp[X][Y]

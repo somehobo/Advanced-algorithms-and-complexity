@@ -1,0 +1,89 @@
+//TEST FOR get_split
+// vector<float> inner;
+// vector<vector<float> > dataset;
+// inner.push_back(2.771244718);
+// inner.push_back(1.784783929);
+// inner.push_back(0);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(1.728571309);
+// inner.push_back(1.169761413);
+// inner.push_back(0);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(3.678319846);
+// inner.push_back(2.81281357);
+// inner.push_back(0);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(3.961043357);
+// inner.push_back(2.61995032);
+// inner.push_back(0);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(2.999208922);
+// inner.push_back(2.209014212);
+// inner.push_back(0);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(7.497545867);
+// inner.push_back(3.162953546);
+// inner.push_back(1);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(9.00220326);
+// inner.push_back(3.339047188);
+// inner.push_back(1);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(7.444542326);
+// inner.push_back(0.476683375);
+// inner.push_back(1);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(10.12493903);
+// inner.push_back(3.234550982);
+// inner.push_back(1);
+// dataset.push_back(inner);
+// inner.clear();
+// inner.push_back(6.642287351);
+// inner.push_back(3.319983761);
+// inner.push_back(1);
+// dataset.push_back(inner);
+// inner.clear();
+// split* root = build_tree(dataset, 3, 1);
+// print_tree(root);
+//test with stump, 1 layer deep
+//hardcoding 1 layer descision tree
+// split* stump = new split;
+// split* right = new split;
+// split* left = new split;
+// stump->b_index = 0;
+// //super dumb
+// //need to make 2 children nodes!!!!!!!!
+// vector<vector<vector<float > > > result;
+// vector<float> inside;
+// inside.push_back(1);
+// vector<vector<float> > middle;
+// middle.push_back(inside);
+// result.push_back(middle);
+// stump->right = right;
+// stump->right->b_groups = result;
+// stump->right->leaf = true;
+// result[0][0][0] = 0;
+// stump->left = left;
+// stump->left->b_groups = result;
+// stump->left->leaf = true;
+// stump->b_value = 6.642287351;
+// //for each row in the dataset make a prediction
+// for (int i = 0; i < dataset.size(); i++) {
+//   split* prediction = predict(stump, dataset[i]);
+//   cout<<"expected: "<<dataset[i][dataset[i].size()-1]<<" ";
+//   cout<<"got: "<<prediction->b_groups[0][0][0]<<endl;
+// }
+
+
+multiple, written, coding
+multiple = 90 min
+subjects: asymptotic runtime, graphs topo sort, min span, flow networks, master theorem,
+dynamic programing, string algorithms, applying algorithms and processes
